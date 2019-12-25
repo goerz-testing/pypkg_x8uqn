@@ -34,7 +34,7 @@ install:
   - export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
   - travis_wait source .travis/texlive/texlive_install.sh
   - pip install tox
-  - pip install 'coverage<5.0' codecov
+  - pip install codecov
   - pip freeze
   - printenv
 cache:
@@ -52,5 +52,4 @@ script:
     fi
   - echo "DONE"
 after_success:
-  - ls -la
-  - codecov
+  - if [[ "${DOCS}" != "true" ]]; then codecov; fi
