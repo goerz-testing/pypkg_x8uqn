@@ -1,0 +1,26 @@
+environment:
+
+  matrix:
+    - PYTHON_VERSION: 3.6
+      MINICONDA: C:\Miniconda3
+      TOXENV: py36-test
+      TOTEST: src tests README.rst
+    - PYTHON_VERSION: 3.7
+      MINICONDA: C:\Miniconda3
+      TOXENV: py37-test
+      TOTEST: src tests README.rst
+    - PYTHON_VERSION: 3.8
+      MINICONDA: C:\Miniconda3
+      TOXENV: py38-test
+      TOTEST: src tests README.rst
+
+install:
+  - "%PYTHON%\\python.exe -V"
+  - "%PYTHON%\\python.exe -m pip install tox"
+  - "%PYTHON%\\python.exe -m pip install codecov"
+  - "%PYTHON%\\python.exe -m pip freeze"
+
+build: off
+
+test_script:
+  - "%PYTHON%\\python.exe -m tox -vv -e %TOXENV% -- %TOTEST%"

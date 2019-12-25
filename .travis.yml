@@ -1,0 +1,47 @@
+# Config file for automatic testing at travis-ci.org
+dist: xenial
+language: python
+matrix:
+  fast_finish: true
+  include:
+    - name: Check codestyle
+      python: 3.7
+      env: TOTEST="" TOXENV="run-blackcheck,run-isortcheck"
+    - name: Docs
+      python: 3.7
+      env: DOCS="true"
+    - name: Python 3.6
+      python: 3.6
+      env: TOTEST="src tests README.rst docs/*.rst" TOXENV=py36-test
+    - name: Python 3.7
+      python: 3.7
+      env: TOTEST="src tests README.rst docs/*.rst" TOXENV=py37-test
+    - name: Python 3.8
+      python: 3.8
+      env: TOTEST="src tests README.rst docs/*.rst" TOXENV=py38-test
+
+install:
+  # any failure stops the build
+  - set -e
+  - export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+  - travis_wait source .travis/texlive/texlive_install.sh
+  - pip install tox
+  - pip install codecov
+  - pip freeze
+  - printenv
+cache:
+  directories:
+    - /tmp/texlive
+    - $HOME/.texlive
+script:
+  # any failure stops testing immediately
+  - set -e
+  - |
+    if [[ "${DOCS}" == "true" ]]; then
+      source .travis/doctr_build.sh
+    else
+      tox -e $TOXENV -- $TOTEST
+    fi
+  - echo "DONE"
+after_success:
+  - if [[ "${DOCS}" != "true" ]]; then codecov; fi
