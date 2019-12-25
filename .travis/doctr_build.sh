@@ -38,5 +38,5 @@ else
 fi
 python -m doctr deploy --key-path docs/doctr_deploy_key.enc \
     --command="git show $TRAVIS_COMMIT:.travis/doctr_post_process.py > post_process.py && git show $TRAVIS_COMMIT:.travis/versions.py > versions.py && python post_process.py" \
-    --built-docs docs/html/_build --no-require-master --build-tags "$DEPLOY_DIR"
+    --built-docs docs/_build/html --no-require-master --build-tags "$DEPLOY_DIR"
 echo "# DOCTR - DONE"
