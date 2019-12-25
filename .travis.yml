@@ -11,7 +11,7 @@ matrix:
   include:
     - name: Check codestyle
       python: 3.7
-      env: TOTEST="" TOXENV="run-blackcheck,run-isortcheck"
+      env: TOXENV="run-blackcheck,run-isortcheck"
     - name: Docs
       python: 3.7
       env: DOCS="true"
@@ -48,7 +48,7 @@ script:
     if [[ "${DOCS}" == "true" ]]; then
       source .travis/doctr_build.sh
     else
-      tox -e $TOXENV -- $TOTEST
+      tox -e $TOXENV
     fi
   - echo "DONE"
 after_success:
