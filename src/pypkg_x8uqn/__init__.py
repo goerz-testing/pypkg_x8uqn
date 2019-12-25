@@ -6,6 +6,7 @@ __all__ = ['func', 'PROJECT_CONST']
 __private__ = []
 __known_refs__ = {'PROJECT_CONST': ':obj:`~.subpkg.submod.PROJECT_CONST`'}
 
+from . import mod
 from .subpkg.submod import PROJECT_CONST
 
 
