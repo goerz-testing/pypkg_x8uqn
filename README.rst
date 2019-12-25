@@ -15,7 +15,7 @@ PyPkg X8UQN
 .. image:: https://img.shields.io/travis/goerz-forks/pypkg_x8uqn.svg
    :alt: Travis Continuous Integration
    :target: https://travis-ci.org/goerz-forks/pypkg_x8uqn
-.. image:: https://img.shields.io/badge/appveyor-no%20id-red.svg
+.. image:: https://ci.appveyor.com/api/projects/status/s9ncghi753yixl2m?svg=true
    :alt: AppVeyor Continuous Integration
    :target: https://ci.appveyor.com/project/goerz-forks/pypkg_x8uqn
 .. image:: https://codecov.io/gh/goerz-forks/pypkg_x8uqn/branch/master/graph/badge.svg
