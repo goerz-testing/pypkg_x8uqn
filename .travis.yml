@@ -5,6 +5,7 @@ env:
   global:
     # Doctr deploy key for goerz-forks/pypkg_x8uqn
     - secure: "A3UEUtDcn9kjMssJKPA5RgzDyu0/nEFdCRSnXrM9gvr5dFxxaJkQjmqMbJwUJkAIVzJldq3YveMb0SrmE2Obm35eISGgeushuVBRoL6SwtqDb0pNUlKdS8f63/jJwRpW0JiBqgOOUPKHH3ZDU/2nkZSvoVe2lCwV3SRWxVjPFFOgJHn/S9QVIi1kIcVF8wV5nIApTHK2hxssrz5PQ9xq6P3zkfAtH8k7lISC8AJsS1LdZRp4C79YfV4Vp8qucLLXrtU0+0Vu0opzO7ZJVyZU8Su+xCMkddmBmcgcZcd3lZiNHYnusBL+Yokxsa0mEZgh72CsBVyQZtWcnQDn92CDcEIWTEtvErInVDSTwfwY9yYO3IqLyvmBA0PrffGqjD+dLGDLOa7jEjryuhS4aaf4TpIuGjLs2pRY6ZO03ZwEnvL5jUHvCZv2vAzE9XyAwFcbcrj8F0tKeieqChEm9TmphHTAxfpLxWJ2dELpxdzWTx/E9/Fm+RpSEVBOXv/p3tA6zv5zyY4NquUI4MpG4GOVq6fgrq+qoRDrMfPJGu/MfdNPmRbnHfw/GBHHBTKL9xzyfPaTTP2Jlmrww576V1J0tPSNnND4diOTQ/hezfb/ZNLfjtGBIARDbPwbuwrOFL4PENGfX5AZzP0pVTDcvNiHlvgVfx/9UfzM2h3hRgZPo5s="
+    - CODECOV_TOKEN="a2f5565d-d5ca-43a0-98c0-ccb61ff025c0"
 matrix:
   fast_finish: true
   include:
