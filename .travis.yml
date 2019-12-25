@@ -53,5 +53,5 @@ script:
     fi
   - echo "DONE"
 after_success:
-  - if [[ "${DOCS}" != "true" ]]; then codecov; fi
-  - if [[ "${DOCS}" != "true" ]]; then coveralls; fi
+  - if [[ "${TOXENV}" =~ test ]]; then codecov; fi
+  - if [[ "${TOXENV}" =~ test ]]; then coveralls; fi
