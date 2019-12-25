@@ -21,4 +21,4 @@ repos:
     rev: v4.3.21
     hooks:
     - id: isort
-      args: ['--check-only']
+      args: ['--check-only', '--diff']
