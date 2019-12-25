@@ -52,4 +52,4 @@ script:
     fi
   - echo "DONE"
 after_success:
-  - if [[ "${DOCS}" != "true" ]]; then codecov; fi
+  - codecov
