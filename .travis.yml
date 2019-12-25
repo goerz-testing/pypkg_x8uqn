@@ -10,6 +10,9 @@ matrix:
     - name: Docs
       python: 3.7
       env: DOCS="true"
+      addons:
+        apt_packages:
+          - pandoc
     - name: Python 3.6
       python: 3.6
       env: TOTEST="src tests README.rst docs/*.rst" TOXENV=py36-test
