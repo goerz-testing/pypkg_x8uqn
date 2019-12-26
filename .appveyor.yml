@@ -7,14 +7,9 @@ environment:
 install:
   - "%PYTHON%\\python.exe -V"
   - "%PYTHON%\\python.exe -m pip install tox"
-  - "%PYTHON%\\python.exe -m pip install codecov"
-  - "%PYTHON%\\python.exe -m pip install coveralls"
   - "%PYTHON%\\python.exe -m pip freeze"
 
 build: off
 
 test_script:
   - "%PYTHON%\\python.exe -m tox -vv -e %TOXENV%"
-
-after_test:
-  - "%PYTHON%\\python.exe -m coveralls"
