@@ -56,11 +56,10 @@ else
         echo "Uploading $filename as release asset to $GH_ASSET"
         response=$(curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "$AUTH" -H "Content-Type: application/octet-stream" "$GH_ASSET")
         echo "Uploaded $filename: $response"
-        echo $response | python -c 'import json,sys;print(json.load(sys.stdin)["browser_download_url"])' >> docs/_build/html/.downloads
+        echo $response | python -c 'import json,sys;print(json.load(sys.stdin)["browser_download_url"])' >> docs/_build/html/_downloads
     done
-    echo "docs/_build/html/.downloads:"
-    cat docs/_build/html/.downloads
-    cp docs/_build/html/.downloads docs/_build/html/downloads # DEBUG
+    echo "docs/_build/html/_downloads:"
+    cat docs/_build/html/_downloads
 
     rm -rf docs/_build/artifacts
 
