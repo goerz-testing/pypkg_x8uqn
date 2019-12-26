@@ -57,6 +57,7 @@ script:
 deploy:
   provider: releases
   token: "$GITHUB_TOKEN"
+  skip_cleanup: true
   file: 'docs/_build_artifacts/*'
   on:
     tags: true
