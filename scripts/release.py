@@ -31,15 +31,15 @@ def make_release(package_name):
     click.confirm("Do you want to make a release?", abort=True)
     check_git_clean()
     new_version = ask_for_release_version(package_name)
-    run_tests()
     set_version(join('.', 'src', package_name, '__init__.py'), new_version)
     edit_history(new_version)
     while not check_dist():
         click.confirm(
             "Fix errors manually! Continue?", default=True, abort=True
         )
-    check_docs()
     make_release_commit(new_version)
+    check_docs()
+    run_tests()
     make_upload(test=True)
     push_release_commit()
     # make_upload(test=False)
