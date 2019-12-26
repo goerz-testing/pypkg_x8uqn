@@ -58,6 +58,8 @@ else
         echo "Uploaded $filename: $response"
         echo $response | python -c 'import json,sys;print(json.load(sys.stdin)["browser_download_url"])' >> docs/_build/html/.downloads
     done
+    echo "docs/_build/html/.downloads:"
+    cat docs/_build/html/.downloads
 
     rm -rf docs/_build/artifacts
 
