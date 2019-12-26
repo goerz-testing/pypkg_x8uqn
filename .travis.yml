@@ -66,5 +66,5 @@ deploy:
     condition: $DOCS = "true"
 after_success:
   - if [[ "${TOXENV}" =~ test ]]; then codecov; fi
-  - if [[ "${TOXENV}" =~ test ]]; then coveralls; fi
+  - if [[ "${TOXENV}" =~ test ]]; then coveralls -v || echo "Cannot upload to coveralls"; fi
   - if [[ "${DOCS}" == "true" ]]; then ls -a docs/_build/artifacts/*; fi
