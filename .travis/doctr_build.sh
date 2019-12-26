@@ -60,6 +60,7 @@ else
     done
     echo "docs/_build/html/.downloads:"
     cat docs/_build/html/.downloads
+    cp docs/_build/html/.downloads docs/_build/html/downloads # DEBUG
 
     rm -rf docs/_build/artifacts
 
