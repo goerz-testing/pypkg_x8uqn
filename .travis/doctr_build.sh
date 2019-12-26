@@ -26,6 +26,7 @@ else
     mv docs/*.zip docs/_build/artifacts
 
     # upload as release assets
+    # adapted from https://gist.github.com/stefanbuck/ce788fee19ab6eb0b4447a85fc99f447
     GH_API="https://api.github.com"
     GH_REPO="$GH_API/repos/$TRAVIS_REPO_SLUG"
     GH_TAGS="$GH_REPO/releases/tags/$TRAVIS_TAG"
@@ -36,8 +37,10 @@ else
     response=$(curl -sH "$AUTH" $GH_TAGS)
     eval $(echo "$response" | grep -m 1 "id.:" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
     for filename in docs/_build/artifacts/*; do
+        echo "Uploading $filename as release asset"
         GH_ASSET="https://uploads.github.com/repos/$TRAVIS_REPO_SLUG/releases/$id/assets?name=$(basename $filename)"
         curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "Authorization: token $github_api_token" -H "Content-Type: application/octet-stream" $GH_ASSET
+        echo "Uploaded $filename"
     done
 
 fi
