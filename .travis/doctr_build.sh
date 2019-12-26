@@ -34,6 +34,7 @@ else
     WGET_ARGS="--content-disposition --auth-no-challenge --no-cookie"
     CURL_ARGS="-LJO#"
     curl -o /dev/null -sH "$AUTH" $GH_REPO || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
+    echo "verify $GH_TAGS"
     response=$(curl -sH "$AUTH" $GH_TAGS)
     echo "$response"
     eval $(echo "$response" | grep -m 1 "id.:" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
