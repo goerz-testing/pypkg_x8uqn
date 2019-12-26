@@ -80,10 +80,15 @@ function _addVersionsMenu(version_data) {
           "<dt>Downloads</dt>";
     for (i in version_data["downloads"][current_folder]) {
       var download_label = version_data["downloads"][current_folder][i][0];
-      var download_file = version_data["downloads"][current_folder][i][1];
-      var inner_html = inner_html + "<dd><a href='"
-                      + root_url + '/' + download_file
-                      + "'>" + download_label + "</a></dd>";
+      var download_url = version_data["downloads"][current_folder][i][1];
+      if (!(/^(https?|ftp):/.test(download_url))){
+          if !download_url.startsWith('/'){
+              var download_url = '/' + download_url;
+          }
+          var download_url = root_url + download_url;
+      }
+      var inner_html = inner_html + "<dd><a href='" + download_url + "'>"
+                     + download_label + "</a></dd>";
     }
   }
   var github_project_url = getGithubProjectUrl();
