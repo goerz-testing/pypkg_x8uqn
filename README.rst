@@ -2,7 +2,7 @@
 PyPkg X8UQN
 ===========
 
-.. image:: https://img.shields.io/badge/github-goerz-forks/pypkg_x8uqn-blue.svg
+.. image:: https://img.shields.io/badge/github-goerz--forks/pypkg_x8uqn-blue.svg
    :alt: Source code on Github
    :target: https://github.com/goerz-forks/pypkg_x8uqn
 .. image:: https://img.shields.io/badge/docs-doctr-blue.svg
