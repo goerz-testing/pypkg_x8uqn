@@ -62,12 +62,14 @@ else
     cat docs/_build/html/_downloads
 
     # upload to bintray
+    rm -f docs/_build/html/_downloads  # DEBUG
     echo "Upload artifacts to bintray"
     for filename in docs/_build/artifacts/*; do
         BINSTAR_UPLOAD="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_ORG/pypkg_x8uqn/$TRAVIS_TAG/$(basename $filename)"
         echo "Uploading $filename artifact to $BINSTAR_UPLOAD"
         response=$(curl -T "$filename" "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINSTAR_UPLOAD")
         echo "Uploaded $filename: $response"
+        echo "https://dl.bintray.com/$BINTRAY_USER/$BINTRAY_ORG/$(basename $filename)" >> docs/_build/html/_downloads
     done
     echo "Publishing release on bintray"
     response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN" "https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_ORG/pypkg_x8uqn/$TRAVIS_TAG/publish")
