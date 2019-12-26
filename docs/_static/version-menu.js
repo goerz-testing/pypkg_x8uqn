@@ -75,12 +75,13 @@ function _addVersionsMenu(version_data) {
                        + "'>" + version_data["labels"][folder] + "</a></dd>";
     }
   }
-  if (version_data["downloads"][current_folder].length > 0){
+  var downloads = version_data["downloads"][current_folder];
+  if (downloads.length > 0){
     var inner_html = inner_html +
           "<dt>Downloads</dt>";
-    for (i in version_data["downloads"][current_folder]) {
-      var download_label = version_data["downloads"][current_folder][i][0];
-      var download_url = version_data["downloads"][current_folder][i][1];
+    for (i in downloads) {
+      var download_label = downloads[i][0];
+      var download_url = downloads[i][1];
       if (!(/^(https?|ftp):/.test(download_url))){
           if (!download_url.startsWith('/')){
               var download_url = '/' + download_url;
