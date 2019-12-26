@@ -25,7 +25,7 @@ else
     cd ../ || exit
     mkdir docs/_build/artifacts
     mv docs/*.zip docs/_build/artifacts
-    githubrelease asset "$TRAVIS_REPO_SLUG" "$TRAVIS_TAG" "docs/_build/artifacts/*"
+    githubrelease asset "$TRAVIS_REPO_SLUG" upload "$TRAVIS_TAG" "docs/_build/artifacts/*"
 
 fi
 
