@@ -26,12 +26,19 @@ def write_index_html(default_branch):
 
 
 def find_downloads(folder):
-    """Find files in the 'download' subfolder of the given `folder`."""
+    """Find artifact links in .downloads file.
+
+    The .downloads file should be created by the doctr_build.sh script.
+    If no .downloads file exists, return an empty list.
+    """
     downloads = []
-    for filename in Path(folder).glob(r'download/*'):
-        label = "".join(filename.suffix).replace('.', '').lower()
-        if len(label) > 0:
-            downloads.append((label, str(filename)))
+    try:
+        with open(".downloads") as in_fh:
+            for url in in_fh:
+                label = url.split(".")[-1].lower()
+                downloads.append((label, url))
+    except IOError:
+        print("WARNING: no .downloads")
     return downloads
 
 
