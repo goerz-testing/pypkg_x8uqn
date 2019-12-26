@@ -16,7 +16,6 @@ else
     # We generate documentation downloads only for tags (which are assumed to
     # correspond to releases). Otherwise, we'd quickly fill up git with binary
     # artifacts for every single push.
-    python -m pip install githubrelease
 
     echo "### [zip]"
     cp -r docs/_build/html "docs/pypkg_x8uqn_$TRAVIS_TAG"
@@ -25,7 +24,21 @@ else
     cd ../ || exit
     mkdir docs/_build/artifacts
     mv docs/*.zip docs/_build/artifacts
-    githubrelease asset "$TRAVIS_REPO_SLUG" upload "$TRAVIS_TAG" "docs/_build/artifacts/*"
+
+    # upload as release assets
+    GH_API="https://api.github.com"
+    GH_REPO="$GH_API/repos/$TRAVIS_REPO_SLUG"
+    GH_TAGS="$GH_REPO/releases/tags/$TRAVIS_TAG"
+    AUTH="Authorization: token $GITHUB_TOKEN"
+    WGET_ARGS="--content-disposition --auth-no-challenge --no-cookie"
+    CURL_ARGS="-LJO#"
+    curl -o /dev/null -sH "$AUTH" $GH_REPO || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
+    response=$(curl -sH "$AUTH" $GH_TAGS)
+    eval $(echo "$response" | grep -m 1 "id.:" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
+    for filename in docs/_build/artifacts/*; do
+        GH_ASSET="https://uploads.github.com/repos/$TRAVIS_REPO_SLUG/releases/$id/assets?name=$(basename $filename)"
+        curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "Authorization: token $github_api_token" -H "Content-Type: application/octet-stream" $GH_ASSET
+    done
 
 fi
 
