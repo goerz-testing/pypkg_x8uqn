@@ -3,7 +3,6 @@ dist: xenial
 language: python
 env:
   global:
-    - CODECOV_TOKEN="a2f5565d-d5ca-43a0-98c0-ccb61ff025c0"
 matrix:
   fast_finish: true
   include:
