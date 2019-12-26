@@ -82,7 +82,7 @@ function _addVersionsMenu(version_data) {
       var download_label = version_data["downloads"][current_folder][i][0];
       var download_url = version_data["downloads"][current_folder][i][1];
       if (!(/^(https?|ftp):/.test(download_url))){
-          if !download_url.startsWith('/'){
+          if (!download_url.startsWith('/')){
               var download_url = '/' + download_url;
           }
           var download_url = root_url + download_url;
