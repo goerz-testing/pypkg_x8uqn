@@ -1,6 +1,6 @@
 """Top-level package."""
 
-__version__ = '0.1.1+dev'
+__version__ = '0.1.2'
 
 __all__ = ['func', 'PROJECT_CONST']
 __private__ = []
