@@ -59,7 +59,9 @@ deploy:
   token: "$GITHUB_TOKEN"
   skip_cleanup: true
   file_glob: true
-  file: 'docs/_build/artifacts/*.zip'
+  file:
+    - 'docs/_build/artifacts/*.zip'
+    - 'docs/_build/artifacts/pypkg_x8uqn_${TRAVIS_TAG}.epub'
   on:
     tags: true
     branch: master
