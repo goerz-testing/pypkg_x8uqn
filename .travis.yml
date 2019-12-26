@@ -54,16 +54,6 @@ script:
       tox -e $TOXENV
     fi
   - echo "DONE"
-deploy:
-  provider: releases
-  token: $GITHUB_TOKEN
-  skip_cleanup: true
-  file:
-    - 'docs/_build/artifacts/pypkg_x8uqn_${TRAVIS_TAG}.epub'
-  on:
-    tags: true
-    branch: master
-    condition: $DOCS = "true"
 after_success:
   - if [[ "${TOXENV}" =~ test ]]; then codecov; fi
   - if [[ "${TOXENV}" =~ test ]]; then coveralls -v || echo "Cannot upload to coveralls"; fi
