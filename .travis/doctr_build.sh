@@ -39,8 +39,8 @@ else
     for filename in docs/_build/artifacts/*; do
         echo "Uploading $filename as release asset"
         GH_ASSET="https://uploads.github.com/repos/$TRAVIS_REPO_SLUG/releases/$id/assets?name=$(basename $filename)"
-        curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "Authorization: token $github_api_token" -H "Content-Type: application/octet-stream" $GH_ASSET
-        echo "Uploaded $filename"
+        response=$(curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "Authorization: token $github_api_token" -H "Content-Type: application/octet-stream" $GH_ASSET)
+        echo "Uploaded $filename: $response"
     done
 
 fi
