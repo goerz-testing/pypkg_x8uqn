@@ -62,6 +62,7 @@ deploy:
   skip_cleanup: true
   file_glob: true
   draft: true
+  prerelease: true
   file:
     - 'docs/_build/artifacts/*.zip'
     - 'docs/_build/artifacts/pypkg_x8uqn_${TRAVIS_TAG}.epub'
