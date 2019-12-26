@@ -82,7 +82,7 @@ else
     for filename in docs/_build/artifacts/*; do
         echo "Copy $filename"
         cp "$filename" docs/_build/html/downloads/
-        echo "/downloads/$(basename $filename)" >> docs/_build/html/_downloads
+        echo "$TRAVIS_TAG/downloads/$(basename $filename)" >> docs/_build/html/_downloads
     done
     echo "Finished copying artifacts"
 
