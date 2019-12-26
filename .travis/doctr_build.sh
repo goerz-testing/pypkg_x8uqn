@@ -25,6 +25,10 @@ else
     mkdir docs/_build/artifacts
     mv docs/*.zip docs/_build/artifacts
 
+    echo "### [epub]"
+    tox -e docs -- -b epub _build/epub
+    mv docs/_build/epub/*.epub "docs/_build/artifacts/pypkg_x8uqn_$TRAVIS_TAG.epub"
+
     # upload as release assets
     # adapted from https://gist.github.com/stefanbuck/ce788fee19ab6eb0b4447a85fc99f447
     GH_API="https://api.github.com"
@@ -34,14 +38,14 @@ else
     AUTH="Authorization: token $GITHUB_TOKEN"
     WGET_ARGS="--content-disposition --auth-no-challenge --no-cookie"
     CURL_ARGS="-LJO#"
-    curl -o /dev/null -sH "$AUTH" $GH_REPO || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
+    curl -o /dev/null -sH "$AUTH" "$GH_REPO" || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
     echo "Make release from tag $TRAVIS_TAG: $GH_RELEASES"
-    API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}' $TRAVIS_TAG $TRAVIS_TAG $TRAVIS_TAG)
+    API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}' "$TRAVIS_TAG" "$TRAVIS_TAG" "$TRAVIS_TAG")
     echo "$API_JSON"
     response=$(curl --data "$API_JSON" -H "$AUTH" "$GH_RELEASES")
     echo "Release response: $response"
     echo "verify $GH_TAG"
-    response=$(curl -sH "$AUTH" $GH_TAG)
+    response=$(curl -sH "$AUTH" "$GH_TAG")
     echo "$response"
     eval $(echo "$response" | grep -m 1 "id.:" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
     echo "id = $id"
