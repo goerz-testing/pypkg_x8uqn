@@ -36,9 +36,13 @@ def find_downloads(folder):
         with open(Path(folder) / ".downloads") as in_fh:
             for url in in_fh:
                 label = url.split(".")[-1].lower()
+                print("For %s, download link %s => %s" % (folder, label, url))
                 downloads.append((label, url))
     except IOError:
         print("WARNING: $%s contains no .downloads" % folder)
+        for child in Path(folder).iterdir():  # DEBUG
+            print("Contents of %s:" % folder)  # DEBUG
+            print(str(child))  # DEBUG
     return downloads
 
 
