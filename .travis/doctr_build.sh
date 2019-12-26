@@ -16,13 +16,13 @@ else
     # We generate documentation downloads only for tags (which are assumed to
     # correspond to releases). Otherwise, we'd quickly fill up git with binary
     # artifacts for every single push.
+    mkdir docs/_build/artifacts
 
     echo "### [zip]"
     cp -r docs/_build/html "docs/pypkg_x8uqn_$TRAVIS_TAG"
     cd docs/ || exit
     zip -r "pypkg_x8uqn_$TRAVIS_TAG.zip" "pypkg_x8uqn_$TRAVIS_TAG"
     cd ../ || exit
-    mkdir docs/_build/artifacts
     mv docs/*.zip docs/_build/artifacts
 
     echo "### [epub]"
@@ -52,9 +52,11 @@ else
     for filename in docs/_build/artifacts/*; do
         GH_ASSET="https://uploads.github.com/repos/$TRAVIS_REPO_SLUG/releases/$id/assets?name=$(basename $filename)"
         echo "Uploading $filename as release asset to $GH_ASSET"
-        response=$(curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "$AUTH" -H "Content-Type: application/octet-stream" $GH_ASSET)
+        response=$(curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "$AUTH" -H "Content-Type: application/octet-stream" "$GH_ASSET")
         echo "Uploaded $filename: $response"
     done
+
+    rm -rf docs/_build/artifacts
 
 fi
 
