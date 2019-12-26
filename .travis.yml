@@ -56,7 +56,8 @@ script:
   - echo "DONE"
 deploy:
   provider: releases
-  token: ${GITHUB_TOKEN}
+  token: $GITHUB_TOKEN
+  api_key: $GITHUB_TOKEN
   skip_cleanup: true
   file_glob: true
   draft: true
