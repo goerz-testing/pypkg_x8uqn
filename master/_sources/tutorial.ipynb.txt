@@ -16,7 +16,7 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "pypkg_x8uqn 0.1.2\n",
+      "pypkg_x8uqn 0.1.2+dev\n",
       "CPython 3.7.3\n",
       "IPython 7.10.2\n"
      ]
@@ -54,7 +54,7 @@
     {
      "data": {
       "text/plain": [
-       "'0.1.2'"
+       "'0.1.2+dev'"
       ]
      },
      "execution_count": 2,
