@@ -40,8 +40,8 @@ def find_downloads(folder):
                 downloads.append((label, url))
     except IOError:
         print("WARNING: $%s contains no .downloads" % folder)
+        print("Contents of %s:" % folder)  # DEBUG
         for child in Path(folder).iterdir():  # DEBUG
-            print("Contents of %s:" % folder)  # DEBUG
             print(str(child))  # DEBUG
     return downloads
 
