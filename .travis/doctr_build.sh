@@ -61,6 +61,7 @@ else
 
 
     # upload to bintray
+    # Depends on $BINTRAY_USER, $BINTRAY_ORG, $BINTRAY_TOKEN from .travis.yml
     rm -f docs/_build/html/_downloads  # DEBUG
     echo "Upload artifacts to bintray"
     for filename in docs/_build/artifacts/*; do
