@@ -56,7 +56,6 @@ script:
   - echo "DONE"
 deploy:
   provider: releases
-  token: "$GITHUB_TOKEN"
   skip_cleanup: true
   file_glob: true
   file:
