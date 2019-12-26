@@ -40,8 +40,8 @@ def make_release(package_name):
     make_release_commit(new_version)
     check_docs()
     run_tests()
-    make_upload(test=True)
     push_release_commit()
+    make_upload(test=True)
     # make_upload(test=False)
     make_and_push_tag(new_version)
     next_dev_version = new_version + '+dev'
