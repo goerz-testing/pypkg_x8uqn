@@ -17,3 +17,4 @@ test_script:
   - "%PYTHON%\\python.exe -m tox -vv -e %TOXENV%"
 
 after_test:
+  - "%PYTHON%\\python.exe -m coveralls"
