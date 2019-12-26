@@ -16,14 +16,16 @@ else
     # We generate documentation downloads only for tags (which are assumed to
     # correspond to releases). Otherwise, we'd quickly fill up git with binary
     # artifacts for every single push.
+    python -m pip install githubrelease
 
     echo "### [zip]"
-    cp -r docs/_build/html docs/pypkg_x8uqn_$TRAVIS_TAG
+    cp -r docs/_build/html "docs/pypkg_x8uqn_$TRAVIS_TAG"
     cd docs/ || exit
-    zip -r pypkg_x8uqn_$TRAVIS_TAG.zip pypkg_x8uqn_$TRAVIS_TAG
+    zip -r "pypkg_x8uqn_$TRAVIS_TAG.zip" "pypkg_x8uqn_$TRAVIS_TAG"
     cd ../ || exit
-    mkdir docs/_build/download
-    mv docs/*.zip docs/_build/download
+    mkdir docs/_build/artifacts
+    mv docs/*.zip docs/_build/artifacts
+    githubrelease asset "$TRAVIS_REPO_SLUG" "$TRAVIS_TAG" "docs/_build/artifacts/*"
 
 fi
 
