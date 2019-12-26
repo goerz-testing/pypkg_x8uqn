@@ -117,7 +117,17 @@ def check_git_clean():
 
 def run_tests():
     """Run 'make test'"""
-    run(['make', 'test'], check=True)
+    success = False
+    while not success:
+        try:
+            run(['make', 'test'], check=True)
+        except CalledProcessError as exc_info:
+            print("Failed tests: %s\n" % exc_info)
+            print("Fix the tests and ammend the release commit.")
+            print("Then continue.\n")
+            click.confirm("Continue?", default=True, abort=True)
+        else:
+            success = True
 
 
 def split_version(version, base=True):
