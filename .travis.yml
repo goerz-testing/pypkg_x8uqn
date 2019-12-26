@@ -59,7 +59,7 @@ deploy:
   token: "$GITHUB_TOKEN"
   skip_cleanup: true
   file_glob: true
-  file: 'docs/_build/artifacts/*'
+  file: 'docs/_build/artifacts/*.zip'
   on:
     tags: true
     branch: master
@@ -67,3 +67,4 @@ deploy:
 after_success:
   - if [[ "${TOXENV}" =~ test ]]; then codecov; fi
   - if [[ "${TOXENV}" =~ test ]]; then coveralls; fi
+  - if [[ "${DOCS}" == "true" ]]; then ls -a docs/_build/artifacts/*; fi
