@@ -54,6 +54,14 @@ script:
       tox -e $TOXENV
     fi
   - echo "DONE"
+deploy:
+  provider: releases
+  token: "$GITHUB_TOKEN"
+  file: 'docs/_build_artifacts/*'
+  on:
+    tags: true
+    branch: master
+    condition: $DOCS = "true"
 after_success:
   - if [[ "${TOXENV}" =~ test ]]; then codecov; fi
   - if [[ "${TOXENV}" =~ test ]]; then coveralls; fi
