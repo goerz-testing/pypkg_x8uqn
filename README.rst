@@ -16,7 +16,7 @@ PyPkg X8UQN
    :target: https://travis-ci.org/goerz-forks/pypkg_x8uqn
 .. image:: https://ci.appveyor.com/api/projects/status/s9ncghi753yixl2m?svg=true
    :alt: AppVeyor Continuous Integration
-   :target: https://ci.appveyor.com/project/goerz-forks/pypkg_x8uqn
+   :target: https://ci.appveyor.com/project/goerz/pypkg-x8uqn
 .. image:: https://coveralls.io/repos/github/goerz-forks/pypkg_x8uqn/badge.svg?branch=master
    :alt: Coveralls
    :target: https://coveralls.io/github/goerz-forks/pypkg_x8uqn?branch=master
