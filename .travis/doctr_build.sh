@@ -56,6 +56,7 @@ else
         echo "Uploading $filename as release asset to $GH_ASSET"
         response=$(curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "$AUTH" -H "Content-Type: application/octet-stream" "$GH_ASSET")
         echo "Uploaded $filename: $response"
+        echo $response | python -c 'import json,sys;print(json.load(sys.stdin)["browser_download_url"])' >> docs/_build/html/.downloads
     done
 
     rm -rf docs/_build/artifacts
