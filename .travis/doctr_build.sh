@@ -36,7 +36,9 @@ else
     CURL_ARGS="-LJO#"
     curl -o /dev/null -sH "$AUTH" $GH_REPO || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
     echo "Make release from tag $TRAVIS_TAG: $GH_RELEASES"
-    response=$(curl "$GITHUB_OAUTH_BASIC" -H "$AUTH" "$GH_RELEASES?tag_name=$TRAVIS_TAG")
+    API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}' $TRAVIS_TAG $TRAVIS_TAG $TRAVIS_TAG)
+    echo "$API_JSON"
+    response=$(curl --data "$API_JSON" -H "$AUTH" "$GH_RELEASES")
     echo "Release response: $response"
     echo "verify $GH_TAG"
     response=$(curl -sH "$AUTH" $GH_TAG)
