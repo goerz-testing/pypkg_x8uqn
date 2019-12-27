@@ -26,6 +26,12 @@ else
     cd ../ || exit
     mv docs/*.zip docs/_build/artifacts
 
+    echo "### [pdf]"
+    tox -e docs -- -b latex _build/latex
+    tox -e run-cmd -- python docs/build_pdf.py docs/_build/latex/*.tex
+    echo "finished latex compilation"
+    mv docs/_build/latex/*.pdf "docs/_build/artifacts/pypkg_x8uqn_$TRAVIS_TAG.pdf"
+
     echo "### [epub]"
     tox -e docs -- -b epub _build/epub
     mv docs/_build/epub/*.epub "docs/_build/artifacts/pypkg_x8uqn_$TRAVIS_TAG.epub"
