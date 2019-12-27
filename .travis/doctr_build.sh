@@ -39,31 +39,31 @@ else
     # upload as release assets
     # adapted from https://gist.github.com/stefanbuck/ce788fee19ab6eb0b4447a85fc99f447
     # This relies on the encrypted $GITHUB_TOKEN variable in .travis.yml
-    GH_API="https://api.github.com"
-    GH_REPO="$GH_API/repos/$TRAVIS_REPO_SLUG"
-    GH_RELEASES="$GH_REPO/releases"
-    GH_TAG="$GH_RELEASES/tags/$TRAVIS_TAG"
-    AUTH="Authorization: token $GITHUB_TOKEN"
-    WGET_ARGS="--content-disposition --auth-no-challenge --no-cookie"
-    CURL_ARGS="-LJO#"
-    curl -o /dev/null -sH "$AUTH" "$GH_REPO" || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
-    echo "Make release from tag $TRAVIS_TAG: $GH_RELEASES"
-    API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}' "$TRAVIS_TAG" "$TRAVIS_TAG" "$TRAVIS_TAG")
-    echo "$API_JSON"
-    response=$(curl --data "$API_JSON" -H "$AUTH" "$GH_RELEASES")
-    echo "Release response: $response"
-    echo "verify $GH_TAG"
-    response=$(curl -sH "$AUTH" "$GH_TAG")
-    echo "$response"
-    eval $(echo "$response" | grep -m 1 "id.:" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
-    echo "id = $id"
-    for filename in docs/_build/artifacts/*; do
-        GH_ASSET="https://uploads.github.com/repos/$TRAVIS_REPO_SLUG/releases/$id/assets?name=$(basename $filename)"
-        echo "Uploading $filename as release asset to $GH_ASSET"
-        response=$(curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "$AUTH" -H "Content-Type: application/octet-stream" "$GH_ASSET")
-        echo "Uploaded $filename: $response"
-        echo $response | python -c 'import json,sys;print(json.load(sys.stdin)["browser_download_url"])' >> docs/_build/html/_downloads
-    done
+    ###GH_API="https://api.github.com"
+    ###GH_REPO="$GH_API/repos/$TRAVIS_REPO_SLUG"
+    ###GH_RELEASES="$GH_REPO/releases"
+    ###GH_TAG="$GH_RELEASES/tags/$TRAVIS_TAG"
+    ###AUTH="Authorization: token $GITHUB_TOKEN"
+    ###WGET_ARGS="--content-disposition --auth-no-challenge --no-cookie"
+    ###CURL_ARGS="-LJO#"
+    ###curl -o /dev/null -sH "$AUTH" "$GH_REPO" || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
+    ###echo "Make release from tag $TRAVIS_TAG: $GH_RELEASES"
+    ###API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}' "$TRAVIS_TAG" "$TRAVIS_TAG" "$TRAVIS_TAG")
+    ###echo "$API_JSON"
+    ###response=$(curl --data "$API_JSON" -H "$AUTH" "$GH_RELEASES")
+    ###echo "Release response: $response"
+    ###echo "verify $GH_TAG"
+    ###response=$(curl -sH "$AUTH" "$GH_TAG")
+    ###echo "$response"
+    ###eval $(echo "$response" | grep -m 1 "id.:" | grep -w id | tr : = | tr -cd '[[:alnum:]]=')
+    ###echo "id = $id"
+    ###for filename in docs/_build/artifacts/*; do
+    ###    GH_ASSET="https://uploads.github.com/repos/$TRAVIS_REPO_SLUG/releases/$id/assets?name=$(basename $filename)"
+    ###    echo "Uploading $filename as release asset to $GH_ASSET"
+    ###    response=$(curl "$GITHUB_OAUTH_BASIC" --data-binary @"$filename" -H "$AUTH" -H "Content-Type: application/octet-stream" "$GH_ASSET")
+    ###    echo "Uploaded $filename: $response"
+    ###    echo $response | python -c 'import json,sys;print(json.load(sys.stdin)["browser_download_url"])' >> docs/_build/html/_downloads
+    ###done
 
 
     # upload to bintray
@@ -78,7 +78,7 @@ else
         echo "https://dl.bintray.com/$BINTRAY_USER/$BINTRAY_REPO/$(basename $filename)" >> docs/_build/html/_downloads
     done
     echo "Publishing release on bintray"
-    BINTRAY_RELEASE= "https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/publish"
+    BINTRAY_RELEASE="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/publish"
     response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINTRAY_RELEASE")
     echo "Finished bintray release : $response"
 
