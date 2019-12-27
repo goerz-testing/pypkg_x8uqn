@@ -61,31 +61,32 @@ else
 
 
     # upload to bintray
-    # Depends on $BINTRAY_USER, $BINTRAY_ORG, $BINTRAY_TOKEN from .travis.yml
+    # Depends on $BINTRAY_USER, $BINTRAY_REPO, $BINTRAY_TOKEN from .travis.yml
     rm -f docs/_build/html/_downloads  # DEBUG
     echo "Upload artifacts to bintray"
     for filename in docs/_build/artifacts/*; do
-        BINSTAR_UPLOAD="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_ORG/pypkg_x8uqn/$TRAVIS_TAG/$(basename $filename)"
-        echo "Uploading $filename artifact to $BINSTAR_UPLOAD"
-        response=$(curl -T "$filename" "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINSTAR_UPLOAD")
+        BINTRAY_UPLOAD="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/$(basename $filename)"
+        echo "Uploading $filename artifact to $BINTRAY_UPLOAD"
+        response=$(curl -T "$filename" "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINTRAY_UPLOAD")
         echo "Uploaded $filename: $response"
-        echo "https://dl.bintray.com/$BINTRAY_USER/$BINTRAY_ORG/$(basename $filename)" >> docs/_build/html/_downloads
+        echo "https://dl.bintray.com/$BINTRAY_USER/$BINTRAY_REPO/$(basename $filename)" >> docs/_build/html/_downloads
     done
     echo "Publishing release on bintray"
-    response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN" "https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_ORG/pypkg_x8uqn/$TRAVIS_TAG/publish")
+    BINTRAY_RELEASE= "https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/publish"
+    response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN") "$BINTRAY_RELEASE"
     echo "Finished bintray release : $response"
 
 
     # upload to gh-pages
-    rm -f docs/_build/html/_downloads  # DEBUG
-    echo "Copy artifacts to downloads folder"
-    mkdir docs/_build/html/downloads
-    for filename in docs/_build/artifacts/*; do
-        echo "Copy $filename"
-        cp "$filename" docs/_build/html/downloads/
-        echo "$TRAVIS_TAG/downloads/$(basename $filename)" >> docs/_build/html/_downloads
-    done
-    echo "Finished copying artifacts"
+    ###rm -f docs/_build/html/_downloads  # DEBUG
+    ###echo "Copy artifacts to downloads folder"
+    ###mkdir docs/_build/html/downloads
+    ###for filename in docs/_build/artifacts/*; do
+    ###    echo "Copy $filename"
+    ###    cp "$filename" docs/_build/html/downloads/
+    ###    echo "$TRAVIS_TAG/downloads/$(basename $filename)" >> docs/_build/html/_downloads
+    ###done
+    ###echo "Finished copying artifacts"
 
     echo "docs/_build/html/_downloads:"
     cat docs/_build/html/_downloads
