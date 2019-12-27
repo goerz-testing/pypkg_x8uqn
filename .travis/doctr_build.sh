@@ -74,12 +74,11 @@ else
         BINTRAY_UPLOAD="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/$(basename $filename)"
         echo "Uploading $filename artifact to $BINTRAY_UPLOAD"
         response=$(curl -T "$filename" "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINTRAY_UPLOAD")
-        if [ -z "${response##*$success*}" ]; then
+        if [ -z "${response##*success*}" ]; then
             echo "Uploaded $filename: $response"
             echo "https://dl.bintray.com/$BINTRAY_USER/$BINTRAY_REPO/$(basename $filename)" >> docs/_build/html/_downloads
         else
-            echo "Error: Failed to upload $filename: $response"
-            exit 1
+            echo "Error: Failed to upload $filename: $response" && sync && exit 1
         fi
     done
     echo "Publishing release on bintray"
