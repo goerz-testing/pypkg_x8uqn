@@ -68,7 +68,6 @@ else
 
     # upload to bintray
     # Depends on $BINTRAY_USER, $BINTRAY_REPO, $BINTRAY_TOKEN from .travis.yml
-    rm -f docs/_build/html/_downloads  # DEBUG
     echo "Upload artifacts to bintray"
     for filename in docs/_build/artifacts/*; do
         BINTRAY_UPLOAD="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/$(basename $filename)"
@@ -84,7 +83,11 @@ else
     echo "Publishing release on bintray"
     BINTRAY_RELEASE="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/publish"
     response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINTRAY_RELEASE")
-    echo "Finished bintray release : $response"
+    if [ -z "${response##*files*}" ]; then
+        echo "Finished bintray release : $response"
+    else
+        echo "Error: Failed publish release on bintray: $response" && sync && exit 1
+    fi
 
 
     # upload to gh-pages
