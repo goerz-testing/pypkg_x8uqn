@@ -44,6 +44,7 @@ dev_requirements = [
     'sphinx-autobuild',
     'sphinx-autodoc-typehints',
     'sphinx_rtd_theme',
+    'travis-encrypt',
     'twine',
     'wheel',
     'jupyter',
@@ -71,9 +72,7 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Natural Language :: English',
     ],
-    description=(
-        "Test of Python Package Structure"
-    ),
+    description=("Test of Python Package Structure"),
     python_requires='>=3.6',
     install_requires=requirements,
     extras_require={'dev': dev_requirements},
