@@ -73,7 +73,7 @@ else
     done
     echo "Publishing release on bintray"
     BINTRAY_RELEASE= "https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/publish"
-    response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN") "$BINTRAY_RELEASE"
+    response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINTRAY_RELEASE")
     echo "Finished bintray release : $response"
 
 
